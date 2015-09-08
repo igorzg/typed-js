@@ -1,0 +1,5 @@
+.idea
+tests/
+node_modules/
+gulpfile.js
+.jscsrc
