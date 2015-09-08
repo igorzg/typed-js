@@ -1,7 +1,7 @@
 language: typed-js
 
 node_js:
-  - 4.0.0
+  - "v4.0.0"
 
 env:
   global:
