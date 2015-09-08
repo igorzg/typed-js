@@ -2,7 +2,7 @@
   "name": "typed-js",
   "main": "./core/index.js",
   "description": "Dynamic javascript type checker for node >= v4.0.0",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "devDependencies": {
     "gulp": "3.9.x",
     "gulp-istanbul": "0.10.x",
