@@ -34,6 +34,7 @@ user.destroy(); // clear all references to initialized object
 ```
 
 # Constants
+```javascript
 Type.OBJECT = "object";
 Type.STRING = "string";
 Type.ARRAY = "array";
@@ -44,7 +45,7 @@ Type.FUNCTION = "function";
 Type.DATE = "date";
 Type.UNDEFINED = "undefined";
 Type.NULL = "null";
-
+```
 # Type Functions
 ### Type.isNull(value)
 Check if value is nullable
