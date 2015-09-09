@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Typed-js by igorzg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Typed-js</h1>
+      <h2 class="project-tagline">Dynamic type checker for nodejs &gt;= v4.0.0</h2>
+      <a href="https://github.com/igorzg/typed-js" class="btn">View on GitHub</a>
+      <a href="https://github.com/igorzg/typed-js/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/igorzg/typed-js/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="typed-js-" class="anchor" href="#typed-js-" aria-hidden="true"><span class="octicon octicon-link"></span></a>TYPED JS <a href="https://travis-ci.org/igorzg/typed-js"><img src="https://travis-ci.org/igorzg/typed-js.svg?branch=master" alt="Build Status"></a>
+</h1>
+
+<h1>
+<a id="support" class="anchor" href="#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support</h1>
+
+<p>Dynamic type checker for nodejs &gt;= v4.0.0
+It support only class syntax in order to have type checking all classes must be inherited from Type class</p>
+
+<h1>
+<a id="type-inheritance" class="anchor" href="#type-inheritance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type Inheritance</h1>
+
+<p>All class members must be defined in constructor super call otherwise if you try to assign member to initialized object
+Type object will throw an type error. After object initialization object is prevented from extension</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">class</span> <span class="pl-en">User</span> <span class="pl-k">extends</span> <span class="pl-en">Type</span> {
+    <span class="pl-en">constructor</span>(<span class="pl-smi">name</span>, <span class="pl-smi">password</span>) {
+        <span class="pl-v">super</span>({
+            username<span class="pl-k">:</span> Type.STRING,
+            password<span class="pl-k">:</span> Type.STRING
+        });
+        <span class="pl-v">this</span>.username <span class="pl-k">=</span> name;
+        <span class="pl-v">this</span>.password <span class="pl-k">=</span> password;
+    }
+    <span class="pl-en">getUserName</span>() {
+        <span class="pl-k">return</span> <span class="pl-v">this</span>.username;
+    }
+    <span class="pl-en">setUserName</span>(<span class="pl-smi">user</span>) {
+        <span class="pl-v">this</span>.username <span class="pl-k">=</span> user;
+    }
+}
+<span class="pl-k">var</span> user <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">User</span>(<span class="pl-s"><span class="pl-pds">'</span>Igor<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Ivanovic<span class="pl-pds">'</span></span>);
+user.getUserName(); <span class="pl-c">// Igor</span>
+user.setUserName(<span class="pl-c1">1</span>) <span class="pl-c">// Throws type error</span>
+user.assign <span class="pl-k">=</span> <span class="pl-c1">1</span> <span class="pl-c">// Throws type error , all members must be defined at super call with proper type</span>
+<span class="pl-c">// Predefined function inside of type</span>
+user.destroy(); <span class="pl-c">// clear all references to initialized object</span></pre></div>
+
+<h1>
+<a id="type-functions" class="anchor" href="#type-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type Functions</h1>
+
+<h3>
+<a id="typeisnullvalue" class="anchor" href="#typeisnullvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isNull(value)</h3>
+
+<p>Check if value is nullable</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isNull(<span class="pl-c1">null</span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisobjectvalue" class="anchor" href="#typeisobjectvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isObject(value)</h3>
+
+<p>Check if value is object</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isObject({}); <span class="pl-c">// true</span>
+Type.isObject([]); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisregexpvalue" class="anchor" href="#typeisregexpvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isRegExp(value)</h3>
+
+<p>Check if value is regular expression object</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isRegExp({}); <span class="pl-c">// false</span>
+Type.isRegExp(<span class="pl-sr"><span class="pl-pds">/</span>abc<span class="pl-pds">/</span>i</span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisdatevalue" class="anchor" href="#typeisdatevalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isDate(value)</h3>
+
+<p>Check if value is date object</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isDate({}); <span class="pl-c">// false</span>
+Type.isDate(<span class="pl-k">new</span> <span class="pl-en">Date</span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisfunctionvalue" class="anchor" href="#typeisfunctionvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isFunction(value)</h3>
+
+<p>Check if value is function object</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isFunction({}); <span class="pl-c">// false</span>
+Type.isFunction(<span class="pl-k">function</span> () {}); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisarrayvalue" class="anchor" href="#typeisarrayvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isArray(value)</h3>
+
+<p>Check if value is array object</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isArray({}); <span class="pl-c">// false</span>
+Type.isArray([]); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisnumbervalue" class="anchor" href="#typeisnumbervalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isNumber(value)</h3>
+
+<p>Check if value is number</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isNumber(<span class="pl-c1">1</span>); <span class="pl-c">// true</span>
+Type.isNumber(<span class="pl-c1">NaN</span>); <span class="pl-c">// true</span>
+Type.isNumber([]); <span class="pl-c">// false</span></pre></div>
+
+<h3>
+<a id="typeisstringvalue" class="anchor" href="#typeisstringvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isString(value)</h3>
+
+<p>Check if value is string</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isString(<span class="pl-c1">1</span>); <span class="pl-c">// false</span>
+Type.isString(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisbooleanvalue" class="anchor" href="#typeisbooleanvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isBoolean(value)</h3>
+
+<p>Check if value is boolean</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isBoolean(<span class="pl-c1">1</span>); <span class="pl-c">// false</span>
+Type.isBoolean(<span class="pl-c1">true</span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisundefinedvalue" class="anchor" href="#typeisundefinedvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isUndefined(value)</h3>
+
+<p>Check if value is undefined</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isUndefined(<span class="pl-c1">null</span>); <span class="pl-c">// false</span>
+Type.isUndefined(<span class="pl-c1">undefined</span>); <span class="pl-c">// true</span></pre></div>
+
+<h3>
+<a id="typeisinitializedvalue" class="anchor" href="#typeisinitializedvalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.isInitialized(value)</h3>
+
+<p>Check if value is initialized, null is not considered as initialized</p>
+
+<div class="highlight highlight-javascript"><pre>Type.isInitialized(<span class="pl-c1">null</span>); <span class="pl-c">// false</span>
+Type.isInitialized(<span class="pl-c1">undefined</span>); <span class="pl-c">// false</span></pre></div>
+
+<h3>
+<a id="typegettypevalue" class="anchor" href="#typegettypevalue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.getType(value)</h3>
+
+<p>Get type of value</p>
+
+<div class="highlight highlight-javascript"><pre>Type.getType(<span class="pl-c1">null</span>); <span class="pl-c">// null</span>
+Type.getType(<span class="pl-c1">undefined</span>); <span class="pl-c">// undefined</span>
+Type.getType({}); <span class="pl-c">// object</span>
+Type.getType([]); <span class="pl-c">// array</span></pre></div>
+
+<h3>
+<a id="typeasserttype-value" class="anchor" href="#typeasserttype-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type.assert(type, value)</h3>
+
+<p>Get type of value. Type should be valid type constant</p>
+
+<div class="highlight highlight-javascript"><pre>Type<span class="pl-c1">.assert</span>(Type.NULL, <span class="pl-c1">null</span>); <span class="pl-c">// true</span>
+Type<span class="pl-c1">.assert</span>(Type.OBJECT, <span class="pl-c1">undefined</span>); <span class="pl-c">// false</span>
+Type<span class="pl-c1">.assert</span>(Type.OBJECT, {}); <span class="pl-c">// true</span>
+Type<span class="pl-c1">.assert</span>(Type.ARRAY, []); <span class="pl-c">// true</span></pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/igorzg/typed-js">Typed-js</a> is maintained by <a href="https://github.com/igorzg">igorzg</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
