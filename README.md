@@ -33,6 +33,17 @@ user.assign = 1 // Throws type error , all members must be defined at super call
 user.destroy(); // clear all references to initialized object
 ```
 
+# Constants
+Type.OBJECT = "object";
+Type.STRING = "string";
+Type.ARRAY = "array";
+Type.REGEX = "regexp";
+Type.NUMBER = "number";
+Type.BOOLEAN = "boolean";
+Type.FUNCTION = "function";
+Type.DATE = "date";
+Type.UNDEFINED = "undefined";
+Type.NULL = "null";
 
 # Type Functions
 ### Type.isNull(value)
