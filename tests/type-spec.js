@@ -46,6 +46,7 @@ describe('TypeJs', function () {
         expect(Type.isRegExp(undefined)).toBe(false);
         expect(Type.isRegExp(new Date)).toBe(false);
         expect(Type.isRegExp(new RegExp)).toBe(true);
+        expect(Type.isRegExp(/abc/g)).toBe(true);
         expect(Type.isRegExp("")).toBe(false);
         expect(Type.isRegExp(1)).toBe(false);
         expect(Type.isRegExp(0)).toBe(false);
