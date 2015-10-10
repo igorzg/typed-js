@@ -16,7 +16,28 @@ class Type {
         });
         Object.preventExtensions(this);
     }
-
+    /**
+     * @since 0.1.0
+     * @author Igor Ivanovic
+     * @name Type#toString
+     *
+     * @description
+     * Stringify
+     */
+    toString() {
+        if (Type.isObject(this.__dynamic__)) {
+            return JSON.stringify(Object.assign({}, this.__dynamic__));
+        }
+        return '{}';
+    }
+    /**
+     * @since 0.1.0
+     * @author Igor Ivanovic
+     * @name Type#destroy
+     *
+     * @description
+     * Destroy class
+     */
     destroy() {
         this.__dynamic__ = null;
     }
@@ -48,6 +69,7 @@ class Type {
             }
         });
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -77,6 +99,7 @@ class Type {
         }
         return false;
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -91,6 +114,7 @@ class Type {
     static assert(type, value) {
         return type === Type.getType(value);
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -104,6 +128,7 @@ class Type {
     static isInitialized(value) {
         return !Type.isUndefined(value) && !Type.isNull(value);
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -137,6 +162,7 @@ class Type {
         }
         throw new TypeError(value);
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -149,6 +175,7 @@ class Type {
     static isBoolean(value) {
         return typeof value === "boolean";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -161,6 +188,7 @@ class Type {
     static isUndefined(value) {
         return typeof value === "undefined";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -173,6 +201,7 @@ class Type {
     static isString(value) {
         return typeof value === "string";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -185,6 +214,7 @@ class Type {
     static isNumber(value) {
         return typeof value === "number";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -197,6 +227,7 @@ class Type {
     static isArray(value) {
         return Array.isArray(value);
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -209,6 +240,7 @@ class Type {
     static isNull(value) {
         return value === null;
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -221,6 +253,7 @@ class Type {
     static isFunction(value) {
         return typeof value === "function";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -233,6 +266,7 @@ class Type {
     static isDate(value) {
         return Object.prototype.toString.call(value) === "[object Date]";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
@@ -245,6 +279,7 @@ class Type {
     static isRegExp(value) {
         return Object.prototype.toString.call(value) === "[object RegExp]";
     }
+
     /**
      * @since 0.1.0
      * @author Igor Ivanovic
