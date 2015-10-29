@@ -1,4 +1,5 @@
 "use strict";
+let util = require('util');
 /**
  * @since 0.1.0
  * @author Igor Ivanovic
@@ -26,7 +27,7 @@ class Type {
      */
     toString() {
         if (Type.isObject(this.__dynamic__)) {
-            return JSON.stringify(Object.assign({}, this.__dynamic__));
+            return util.inspect(this.__dynamic__, {colors: false, depth: 5})
         }
         return '{}';
     }
