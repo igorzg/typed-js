@@ -27,7 +27,7 @@ class Type {
      */
     toString() {
         if (Type.isObject(this.__dynamic__)) {
-            return util.inspect(this.__dynamic__, {colors: false, depth: 5})
+            return util.inspect(this.__dynamic__, {colors: false, depth: 5});
         }
         return '{}';
     }
